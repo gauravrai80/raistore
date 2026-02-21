@@ -50,15 +50,16 @@ export default function ProductDetail() {
   const { data: dbProducts } = useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/api/products?limit=1000');
+      const base = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const res = await fetch(`${base}/products?limit=1000`);
       if (!res.ok) throw new Error('Failed to fetch products');
       const data = await res.json();
       return data.products || [];
     },
   });
   const allProducts = dbProducts?.length ? dbProducts.map(mapDbProduct) : localProducts;
-  // Find by either standard ID or MongoDB _id (which is mapped to 'id' in mapDbProduct)
-  const product = allProducts.find(p => p.id === id);
+  // Compare as strings to handle MongoDB ObjectId vs URL param type mismatch
+  const product = allProducts.find(p => String(p.id) === String(id));
   if (!product) {
     return (<div className="min-h-screen bg-background">
       <Navbar />
