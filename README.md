@@ -495,4 +495,4 @@ Built on **shadcn/ui** + **Radix UI** primitives including: Accordion, Button, C
 
 ## 📜 License
 
-© 2025 RaiStore. All rights reserved. Built by **Sudhanshu**.
+© 2025 RaiStore. All rights reserved. Built by **Gaurav Rai**.
